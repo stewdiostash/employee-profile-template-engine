@@ -1,4 +1,4 @@
-<div class="card employee-card">
+<!-- <div class="card employee-card">
     <div class="card-header">
         <h2 class="card-title">{{ name }}</h2>
         <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>{{ role }}</h3>
@@ -9,5 +9,43 @@
             <li class="list-group-item">Email: <a href="mailto:{{ email }}">{{ email }}</a></li>
             <li class="list-group-item">Office number: {{ officeNumber }}</li>
         </ul>
+    </div>
+</div> -->
+
+<div class="card">
+    <div class="card-head">
+        <h3>{{ name }}</h3>
+    </div>
+    <div class="card-body">
+        <div class="card-subhead">
+            <div class="rank-badge">
+                <i class="fas fa-mug-hot"></i>
+            </div>
+            <p class="title">
+                {{ role }}
+            </p>
+        </div>
+        <div class="card-details">
+            <h5>
+                ID #
+            </h5>
+            <p>
+                {{ id }}
+            </p>
+            <hr>
+            <h5>
+                Email
+            </h5>
+            <p>
+                {{ email }}
+            </p>
+            <hr>
+            <h5>
+                Office #
+            </h5>
+            <p>
+                {{ officeNumber }}
+            </p>
+        </div>
     </div>
 </div>
