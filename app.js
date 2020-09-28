@@ -39,7 +39,7 @@ const managerQuestions = [
     message: "Add an additional team member?",
     type: "list",
     choices: ["Add Engineer", "Add Intern", "I'm done adding team members"],
-  },
+  }
 ];
 
 const engineerQuestions = [
@@ -62,13 +62,13 @@ const engineerQuestions = [
     name: "github",
     message: "What's your engineer's GitHub username?",
     type: "input",
-  },
+  },]
   {
     name: "add",
     message: "Add an additional team member?",
     type: "list",
     choices: ["Add Engineer", "Add Intern", "I'm done adding team members"],
-  },
+  }
 ];
 
 const internQuestions = [
@@ -97,8 +97,17 @@ const internQuestions = [
     message: "Add an additional team member?",
     type: "list",
     choices: ["Add Engineer", "Add Intern", "I'm done adding team members"],
-  },
+  }
 ];
+
+const addAnother = [
+  {
+    name: "add",
+    message: "Add an additional team member?",
+    type: "list",
+    choices: ["Add Engineer", "Add Intern", "I'm done adding team members"],
+  },
+]
 
 function init() {
   inquirer
@@ -109,6 +118,17 @@ function init() {
       appendFileAsync("team.html", generateManager({...answers}))
         .then(() => {
           console.log("Written to file");
+          
+          inquirer
+          .prompt(addAnother)
+          .then((answers) => {
+            console.log(answers);
+          })
+          .catch((err) => {
+            console.log(err);
+            console.log("We have a problem!");
+          });
+
         })
         .catch((err) => {
           console.log(err.message);
@@ -131,6 +151,7 @@ function init() {
       console.log(err);
       console.log("We have a problem!");
     });
+
 }
 
 init();
