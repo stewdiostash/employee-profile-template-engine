@@ -7,7 +7,7 @@ const fs = require("fs");
 const util = require("util");
 const appendFileAsync = util.promisify(fs.appendFile);
 const generateManager = require("./utils/generateManager.js");
-const teamArray = [];
+const employees = [];
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -103,13 +103,13 @@ function init() {
         answers.email,
         answers.officeNumber
       );
-      teamArray.push(manager);
-      console.log(teamArray);
+      employees.push(manager);
+      console.log(employees);
       addOption();
     })
     .catch((err) => {
       console.log(err);
-      console.log("We have a problem!");
+      console.log("Failed to add manager");
     });
 }
 
@@ -124,13 +124,13 @@ function addEngineer() {
         answers.email,
         answers.github
       );
-      teamArray.push(engineer);
-      console.log(teamArray);
+      employees.push(engineer);
+      console.log(employees);
       addOption();
     })
     .catch((err) => {
       console.log(err);
-      console.log("We have a problem!");
+      console.log("Failed to add engineer");
     });
 }
 
@@ -145,13 +145,13 @@ function addIntern() {
         answers.email,
         answers.school
       );
-      teamArray.push(intern);
-      console.log(teamArray);
+      employees.push(intern);
+      console.log(employees);
       addOption();
     })
     .catch((err) => {
       console.log(err);
-      console.log("We have a problem!");
+      console.log("Failed to add intern");
     });
 }
 
@@ -165,7 +165,6 @@ function addOption() {
         addIntern();
       } else if (answers.add === "I'm done adding team members") {
         publishTeam();
-
       }
     })
     .catch((err) => {
@@ -174,27 +173,8 @@ function addOption() {
 }
 
 function publishTeam() {
-  for (var i = 0; i < teamArray.length; i++) {
-    if (teamArray[i].getRole() === "Manager") {
-      console.log("We've got a manager");
-      appendFileAsync("team.html", generateManager(teamArray[i]))
-      .then(() => {
-        console.log(`Added ${teamArray[i].name} to file`);
-        addOption();
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-    } else if (teamArray[i].getRole() === "Engineer") {
-      console.log("We've got an engineer");
-    } else if (teamArray[i].getRole() === "Intern") {
-      console.log("We've got an intern");
-    }
+    fs.writeFileSync(outputPath, render(employees));
   }
-
-    // appendFileAsync("team.html", generateManager({ ...answers }))
-
-}
 
 init();
 

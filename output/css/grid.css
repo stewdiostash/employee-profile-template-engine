@@ -6,11 +6,13 @@ footer,
     display: flex;
 }
 
+header,
 .card-subhead,
 .rank-badge {
     align-items: center;
 }
 
+header,
 .rank-badge {
     justify-content: center;
 }

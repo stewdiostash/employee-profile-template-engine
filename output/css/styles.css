@@ -12,11 +12,12 @@ body {
 
 .card-head {
     font-family: 'IBM Plex Sans Condensed', sans-serif;
-    font-weight: 500;
     letter-spacing: .2px;
     font-size: 26px;
+    letter-spacing: .8px;
     padding: 24px 24px 48px 24px;
-    background-color: #FFB388;
+    color: white;
+    background-color: #2d2d2d;
     border-radius: 4px 4px 0 0;
 }
 
@@ -39,8 +40,19 @@ body {
 .rank-badge {
     height: 40px;
     width: 40px;
-    background-color: #FFB388;
     border-radius: 3px;
+}
+
+.manager-badge {
+    background-color: #88FFCD;
+}
+
+.engineer-badge {
+    background-color: #FFB890;
+}
+
+.intern-badge {
+    background-color: #FFAEED;
 }
 
 i {
@@ -58,8 +70,16 @@ i {
     margin-top: 24px;
 }
 
+h1 {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+}
+
 h3 {
     margin: 12px auto;
+    font-weight: 300;
+    font-size: 28px;
 }
 
 h5 {

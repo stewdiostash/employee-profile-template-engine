@@ -1,13 +1,37 @@
-<div class="card employee-card">
-    <div class="card-header">
-        <h2 class="card-title">{{ name }}</h2>
-        <h3 class="card-title"><i class="fas fa-user-graduate mr-2"></i>{{ role }}</h3>
+<div class="card">
+    <div class="card-head">
+        <h3>{{ name }}</h3>
     </div>
     <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item">ID: {{ id }}</li>
-            <li class="list-group-item">Email: <a href="mailto:{{ email }}">{{ email }}</a></li>
-            <li class="list-group-item">School: {{ school }}</li>
-        </ul>
+        <div class="card-subhead">
+            <div class="rank-badge intern-badge">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <p class="title">
+                {{ role }}
+            </p>
+        </div>
+        <div class="card-details">
+            <h5>
+                ID #
+            </h5>
+            <p>
+                {{ id }}
+            </p>
+            <hr>
+            <h5>
+                Email
+            </h5>
+            <p>
+                {{ email }}
+            </p>
+            <hr>
+            <h5>
+                School
+            </h5>
+            <p>
+                {{ school }}
+            </p>
+        </div>
     </div>
 </div>
