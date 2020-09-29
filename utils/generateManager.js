@@ -31,7 +31,7 @@ function generateManager(data) {
                 Office #
             </h5>
             <p>
-                ${data.officeNum}
+                ${data.officeNumber}
             </p>
         </div>
     </div>

@@ -7,6 +7,7 @@ const fs = require("fs");
 const util = require("util");
 const appendFileAsync = util.promisify(fs.appendFile);
 const generateManager = require("./utils/generateManager.js");
+const teamArray = [];
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -91,36 +92,20 @@ const addQuestion = [
   },
 ];
 
-function addOption() {
-  inquirer
-    .prompt(addQuestion)
-    .then((answers) => {
-      if (answers.add === "Add Engineer") {
-        addEngineer();
-      } else if (answers.add === "Add Intern") {
-        addIntern();
-      } else {
-        // What goes here?
-      }
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-}
-
 function init() {
   inquirer
     .prompt(managerQuestions)
     .then((answers) => {
       console.log(answers);
-      appendFileAsync("team.html", generateManager({ ...answers }))
-        .then(() => {
-          console.log(`Added ${answers.name} to file`);
-          addOption();
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
+      const manager = new Manager(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.officeNumber
+      );
+      teamArray.push(manager);
+      console.log(teamArray);
+      addOption();
     })
     .catch((err) => {
       console.log(err);
@@ -133,19 +118,82 @@ function addEngineer() {
     .prompt(engineerQuestions)
     .then((answers) => {
       console.log(answers);
-      appendFileAsync("team.html", generateManager({ ...answers }))
-        .then(() => {
-          console.log(`Added ${answers.name} to file`);
-          addOption();
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
+      const engineer = new Engineer(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.github
+      );
+      teamArray.push(engineer);
+      console.log(teamArray);
+      addOption();
     })
     .catch((err) => {
       console.log(err);
       console.log("We have a problem!");
     });
+}
+
+function addIntern() {
+  inquirer
+    .prompt(internQuestions)
+    .then((answers) => {
+      console.log(answers);
+      const intern = new Intern(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.school
+      );
+      teamArray.push(intern);
+      console.log(teamArray);
+      addOption();
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log("We have a problem!");
+    });
+}
+
+function addOption() {
+  inquirer
+    .prompt(addQuestion)
+    .then((answers) => {
+      if (answers.add === "Add Engineer") {
+        addEngineer();
+      } else if (answers.add === "Add Intern") {
+        addIntern();
+      } else if (answers.add === "I'm done adding team members") {
+        publishTeam();
+
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
+
+function publishTeam() {
+  for (var i = 0; i < teamArray.length; i++) {
+    if (teamArray[i].getRole() === "Manager") {
+      console.log("We've got a manager");
+      appendFileAsync("team.html", generateManager(teamArray[i]))
+      .then(() => {
+        console.log(`Added ${teamArray[i].name} to file`);
+        addOption();
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    } else if (teamArray[i].getRole() === "Engineer") {
+      console.log("We've got an engineer");
+    } else if (teamArray[i].getRole() === "Intern") {
+      console.log("We've got an intern");
+    }
+  }
+
+    // appendFileAsync("team.html", generateManager({ ...answers }))
+
 }
 
 init();
