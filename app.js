@@ -30,7 +30,7 @@ const managerQuestions = [
     type: "input",
   },
   {
-    name: "officeNum",
+    name: "officeNumber",
     message: "What's your manager's office number?",
     type: "input",
   },
