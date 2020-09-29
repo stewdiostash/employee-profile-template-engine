@@ -34,12 +34,6 @@ const managerQuestions = [
     message: "What's your manager's office number?",
     type: "input",
   },
-  {
-    name: "add",
-    message: "Add an additional team member?",
-    type: "list",
-    choices: ["Add Engineer", "Add Intern", "I'm done adding team members"],
-  }
 ];
 
 const engineerQuestions = [
@@ -62,13 +56,7 @@ const engineerQuestions = [
     name: "github",
     message: "What's your engineer's GitHub username?",
     type: "input",
-  },]
-  {
-    name: "add",
-    message: "Add an additional team member?",
-    type: "list",
-    choices: ["Add Engineer", "Add Intern", "I'm done adding team members"],
-  }
+  },
 ];
 
 const internQuestions = [
@@ -92,66 +80,72 @@ const internQuestions = [
     message: "Which school does your intern attend?",
     type: "input",
   },
-  {
-    name: "add",
-    message: "Add an additional team member?",
-    type: "list",
-    choices: ["Add Engineer", "Add Intern", "I'm done adding team members"],
-  }
 ];
 
-const addAnother = [
+const addQuestion = [
   {
     name: "add",
     message: "Add an additional team member?",
     type: "list",
     choices: ["Add Engineer", "Add Intern", "I'm done adding team members"],
   },
-]
+];
+
+function addOption() {
+  inquirer
+    .prompt(addQuestion)
+    .then((answers) => {
+      if (answers.add === "Add Engineer") {
+        addEngineer();
+      } else if (answers.add === "Add Intern") {
+        addIntern();
+      } else {
+        // What goes here?
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
 
 function init() {
   inquirer
     .prompt(managerQuestions)
     .then((answers) => {
       console.log(answers);
-    //   console.log(JSON.parse(answers));
-      appendFileAsync("team.html", generateManager({...answers}))
+      appendFileAsync("team.html", generateManager({ ...answers }))
         .then(() => {
-          console.log("Written to file");
-          
-          inquirer
-          .prompt(addAnother)
-          .then((answers) => {
-            console.log(answers);
-          })
-          .catch((err) => {
-            console.log(err);
-            console.log("We have a problem!");
-          });
-
+          console.log(`Added ${answers.name} to file`);
+          addOption();
         })
         .catch((err) => {
           console.log(err.message);
         });
-
-    //   if (answers.add === "Add Engineer") {
-    //     inquirer.prompt(engineerQuestions).then((answers) => {
-    //       console.log(answers);
- 
-    //     });
-    //   } else if (answers.add === "Add Intern") {
-    //     inquirer.prompt(internQuestions).then((answers) => {
-    //       console.log(answers);
-
-    //     });
-    //   } else {
-    //   }
     })
     .catch((err) => {
       console.log(err);
       console.log("We have a problem!");
     });
+}
 
+function addEngineer() {
+  inquirer
+    .prompt(engineerQuestions)
+    .then((answers) => {
+      console.log(answers);
+      appendFileAsync("team.html", generateManager({ ...answers }))
+        .then(() => {
+          console.log(`Added ${answers.name} to file`);
+          addOption();
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log("We have a problem!");
+    });
 }
 
 init();
