@@ -4,9 +4,6 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-const util = require("util");
-const appendFileAsync = util.promisify(fs.appendFile);
-const generateManager = require("./utils/generateManager.js");
 const employees = [];
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
