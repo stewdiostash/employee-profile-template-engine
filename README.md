@@ -9,7 +9,7 @@
 
 ## Description
 
-Node CLI that quickly generates team profiles with the help of inquirer and fs packages.
+Node CLI that efficiently generates and outputs visual team member profiles with the help of inquirer and fs packages. A series of JavaScript classes serve as templates for each profile object. As a requirement, each class passes a series of predefined Jest tests.
 
 
 ## Screenshot
